@@ -1,0 +1,9 @@
+# NOTE: This static file is superseded by src/app/robots.ts, which Next.js
+# serves at /robots.txt. If both exist the static one in /public wins, so keep
+# this minimal and matching. Delete this file once the generated route is
+# confirmed live.
+
+User-agent: *
+Allow: /
+
+Sitemap: https://navdeepresort.com/sitemap.xml

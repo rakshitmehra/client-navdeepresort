@@ -1,0 +1,31 @@
+# Dependencies
+node_modules
+
+# Production build
+.next
+out
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Next.js beta-watchpack cache
+.blazer-cache
+
+# Next.js build outputs
+/.next
+
+# Turborepo cache
+.turbo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local env files
+.env
+.env.local
+.env.*.local
+.env.protocol
