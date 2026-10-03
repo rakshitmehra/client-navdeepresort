@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import GalleryGrid from '@/components/GalleryGrid';
+import { whatsappLink } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Gallery',
@@ -50,7 +51,7 @@ export default function GalleryPage() {
             Reach out and we&apos;ll help plan the perfect visit.
           </p>
           <a
-            href="https://wa.me/918567098852?text=Hello%21%20I%27d%20like%20to%20plan%20a%20visit%20to%20Navdeep%20Resort."
+            href={whatsappLink("Hello Navdeep Resort! I'd like to plan a visit after seeing your gallery.", '/gallery')}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block font-body text-sm font-semibold bg-wine text-ivory px-8 py-3.5 rounded-full hover:bg-gold hover:text-wine transition-all duration-300 hover:scale-105"

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { whatsappLink } from '@/lib/whatsapp';
 
 const destinations = [
   { label: 'Home', href: '/' },
@@ -47,7 +48,7 @@ export default function NotFound() {
         </div>
 
         <a
-          href="https://wa.me/918567098852?text=Hello%21%20I%20couldn%27t%20find%20what%20I%20was%20looking%20for%20on%20your%20website."
+          href={whatsappLink("Hello Navdeep Resort! I couldn't find what I was looking for on your website.", '/')}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2.5 font-body text-sm font-semibold bg-gold text-wine px-7 py-3 rounded-full hover:bg-gold/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-gold/25"

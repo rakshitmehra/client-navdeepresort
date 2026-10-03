@@ -4,6 +4,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import TiltCard from '@/components/TiltCard';
+import StatusBadge from '@/components/StatusBadge';
+import { whatsappLink } from '@/lib/whatsapp';
+import { bigVenues, partyHall, properties } from '@/lib/venues';
+
+const venueCards = [
+  ...bigVenues.map((v) => ({ ...v, href: `/packages#${v.id}` })),
+  { ...partyHall, href: '/packages#party-hall' },
+];
 
 /* ─── PACKAGES ──────────────────────────────────────────────── */
 const packages = [
@@ -11,9 +19,9 @@ const packages = [
     id: 'family-retreat',
     title: 'Family Retreat',
     subtitle: 'Weekend getaway for families',
-    description: 'Lush lawns, a sparkling pool, and activities for all ages. Everything your family needs to unwind.',
+    description: 'Lush lawns, a pool in summers, and activities for all ages. Everything your family needs to unwind.',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
-    features: ['Lawn & Pool Access', 'Bonfire Evenings', 'Kids Play Area', 'Breakfast Included'],
+    features: ['Lawn & Pool (Summers)', 'Bonfire Evenings', 'Kids Play Area', 'Breakfast Included'],
     tag: 'Family',
   },
   {
@@ -40,7 +48,7 @@ const packages = [
     subtitle: 'A day out in the greens',
     description: 'Pack nothing but good company. Full resort access, a hearty meal, and a day surrounded by nature.',
     image: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80',
-    features: ['Full Resort Access', 'Buffet Lunch', 'Swimming Pool', 'Outdoor Games'],
+    features: ['Full Resort Access', 'Buffet Lunch', 'Pool (Summers only)', 'Outdoor Games'],
     tag: 'Day Out',
   },
   {
@@ -137,9 +145,7 @@ const testimonials = [
 
 /* ─── PACKAGE CARD ──────────────────────────────────────────── */
 function PackageCard({ pkg }: { pkg: Package }) {
-  const waMessage = encodeURIComponent(
-    `Hello! I\'d like to enquire about the ${pkg.title} package at Navdeep Resort.`
-  );
+  const waHref = whatsappLink(`Hello Navdeep Resort! I'd like to enquire about the ${pkg.title} package.`, `/packages#${pkg.id}`);
   return (
     <TiltCard className="reveal bg-white rounded-2xl overflow-hidden flex flex-col group">
       <div className="relative h-56 overflow-hidden img-zoom">
@@ -168,7 +174,7 @@ function PackageCard({ pkg }: { pkg: Package }) {
           ))}
         </ul>
         <a
-          href={`https://wa.me/918567098852?text=${waMessage}`}
+          href={waHref}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-auto w-full text-center font-body text-sm font-semibold bg-wine text-ivory px-6 py-3 rounded-full hover:bg-gold hover:text-wine transition-all duration-300 group-hover:shadow-lg group-hover:shadow-wine/20"
@@ -218,7 +224,7 @@ function HeroSection() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const waMessage = encodeURIComponent("Hello! I\'d like to know more about Navdeep Resort.");
+  const waHref = whatsappLink("Hello Navdeep Resort! I'd like to know more about the resort.", '/');
 
   return (
     <section className="relative min-h-screen flex items-end pb-20 pt-24 overflow-hidden noise-overlay">
@@ -267,10 +273,10 @@ function HeroSection() {
               href="/packages"
               className="font-body text-sm font-semibold bg-gold text-wine px-8 py-4 rounded-full hover:bg-gold/90 hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-gold/30"
             >
-              View Packages
+              Venues &amp; Packages
             </Link>
             <a
-              href={`https://wa.me/918567098852?text=${waMessage}`}
+              href={waHref}
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm font-semibold glass text-ivory px-8 py-4 rounded-full hover:bg-white/15 hover:scale-105 active:scale-95 transition-all duration-200"
@@ -361,7 +367,7 @@ function InstagramBanner() {
 
 /* ─── PAGE ──────────────────────────────────────────────────── */
 export default function HomePage() {
-  const waMessage = encodeURIComponent("Hello! I\'d like to know more about Navdeep Resort.");
+  const waHref = whatsappLink("Hello Navdeep Resort! I'd like to plan a visit. Please help me with details.", '/');
   const marqueeItems = [
     'Family Retreats', 'Grand Weddings', 'Corporate Retreats', 'Birthday Parties',
     'Day Picnics', 'Overnight Stays', 'Sangeet Nights', 'Anniversary Dinners',
@@ -411,6 +417,53 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* VENUES */}
+      <section className="bg-ivory pt-28 pb-8 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16 reveal">
+            <p className="font-body text-gold text-sm font-medium mb-3 tracking-wide uppercase">Our venues</p>
+            <h2 className="font-display text-5xl md:text-6xl text-wine font-bold leading-tight mb-4 tracking-tight">
+              Three places to<br />celebrate
+            </h2>
+            <p className="font-body text-gray-600 text-base max-w-xl leading-relaxed">
+              Indoor and Outdoor for marriages and big functions. The Small Party Hall for birthdays, ring ceremonies and other small gatherings.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 stagger">
+            {venueCards.map((v) => (
+              <TiltCard key={v.id} className="reveal bg-white rounded-2xl overflow-hidden flex flex-col group">
+                <div className="relative h-56 overflow-hidden img-zoom">
+                  <Image src={v.image} alt={v.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                  <span className="absolute top-4 left-4 glass text-ivory text-xs font-body font-medium px-3 py-1.5 rounded-full">
+                    {v.tag}
+                  </span>
+                </div>
+                <div className="p-7 flex flex-col flex-1">
+                  <h3 className="font-display text-2xl text-wine font-bold mb-3 leading-snug">{v.title}</h3>
+                  <p className="font-body text-sm text-gray-600 leading-relaxed mb-6 flex-1">{v.description}</p>
+                  <div className="flex flex-wrap gap-3">
+                    <Link
+                      href={v.href}
+                      className="font-body text-sm font-semibold bg-wine text-ivory px-6 py-3 rounded-full hover:bg-gold hover:text-wine transition-colors duration-300"
+                    >
+                      View packages
+                    </Link>
+                    <a
+                      href={whatsappLink(`Hello Navdeep Resort! I'd like to enquire about the ${v.title} (${v.tag.toLowerCase()}).`, v.href)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-body text-sm font-semibold border border-wine/30 text-wine px-6 py-3 rounded-full hover:border-wine transition-colors duration-300"
+                    >
+                      Inquire
+                    </a>
+                  </div>
+                </div>
+              </TiltCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* PACKAGES */}
       <section className="bg-ivory py-28 px-6 overflow-hidden">
         <div className="max-w-7xl mx-auto">
@@ -435,6 +488,69 @@ export default function HomePage() {
             >
               See Full Package Details
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* POOL */}
+      <section className="bg-blush py-28 px-6 overflow-hidden">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="reveal-left relative h-80 lg:h-[440px] rounded-2xl overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=80"
+              alt="Swimming pool at Navdeep Resort"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+          <div className="reveal-right">
+            <StatusBadge status="seasonal" className="mb-5" />
+            <h2 className="font-display text-5xl md:text-6xl text-wine font-bold leading-tight mb-4 tracking-tight">
+              The Pool
+            </h2>
+            <p className="font-body text-gray-600 text-base leading-relaxed mb-8 max-w-md">
+              Cool off in summers — pool parties for 50 to 100 guests, family outings and day picnics. The pool is operational in the summer season only.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/pool"
+                className="font-body text-sm font-semibold bg-wine text-ivory px-8 py-4 rounded-full hover:bg-gold hover:text-wine transition-colors duration-300"
+              >
+                Explore the pool
+              </Link>
+              <a
+                href={whatsappLink("Hello Navdeep Resort! I'd like to enquire about the swimming pool / a pool party.", '/pool')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-body text-sm font-semibold border-2 border-wine text-wine px-8 py-4 rounded-full hover:bg-wine hover:text-ivory transition-colors duration-300"
+              >
+                Inquire on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PROPERTIES STATUS */}
+      <section className="bg-ivory py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-12 reveal">
+            <p className="font-body text-gold text-sm font-medium mb-3 tracking-wide uppercase">At a glance</p>
+            <h2 className="font-display text-4xl md:text-5xl text-wine font-bold tracking-tight">What is open</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger">
+            {properties.map((p) => (
+              <Link
+                key={p.id}
+                href={p.href}
+                className="reveal bg-white rounded-2xl p-7 border border-wine/10 hover:border-gold hover:shadow-xl hover:shadow-wine/10 transition-all duration-300 flex flex-col gap-4"
+              >
+                <StatusBadge status={p.status} className="self-start" />
+                <h3 className="font-display text-2xl text-wine font-bold leading-snug">{p.title}</h3>
+                <p className="font-body text-sm text-gray-600 leading-relaxed">{p.blurb}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -512,7 +628,7 @@ export default function HomePage() {
               Whether you know exactly what you want or need help planning — just say hello on WhatsApp.
             </p>
             <a
-              href={`https://wa.me/918567098852?text=${waMessage}`}
+              href={waHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 font-body text-sm font-semibold bg-ivory text-[#7A5A18] px-7 py-3 rounded-full hover:bg-white hover:scale-105 active:scale-95 transition-all duration-200 shadow-xl shadow-[#7A5A18]/25"

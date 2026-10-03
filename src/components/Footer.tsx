@@ -23,6 +23,9 @@ export default function Footer() {
               {[
                 { label: 'Home', href: '/' },
                 { label: 'Packages', href: '/packages' },
+                { label: 'Pool (Summers)', href: '/pool' },
+                { label: 'Restaurant (Opening Soon)', href: '/restaurant' },
+                { label: 'Bar', href: '/bar' },
                 { label: 'Gallery', href: '/gallery' },
                 { label: 'About Us', href: '/about' },
                 { label: 'Contact', href: '/contact' },

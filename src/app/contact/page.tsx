@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import JsonLd from '@/components/JsonLd';
+import { whatsappLink } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'Contact',
@@ -59,9 +60,9 @@ const localBusinessJsonLd = {
 };
 
 export default function ContactPage() {
-  const waGeneral = `https://wa.me/918567098852?text=${encodeURIComponent("Hello! I'd like to get in touch with Navdeep Resort.")}`;
-  const waPackage = `https://wa.me/918567098852?text=${encodeURIComponent("Hello! I'd like to enquire about packages at Navdeep Resort.")}`;
-  const waDirection = `https://wa.me/918567098852?text=${encodeURIComponent("Hello! I'd like directions to reach Navdeep Resort.")}`;
+  const waGeneral = whatsappLink("Hello Navdeep Resort! I'd like to get in touch.", '/contact');
+  const waPackage = whatsappLink("Hello Navdeep Resort! I'd like to enquire about your venues and packages.", '/packages');
+  const waDirection = whatsappLink("Hello Navdeep Resort! I'd like directions to reach the resort.", '/contact');
 
   return (
     <div>

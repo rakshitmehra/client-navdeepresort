@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import type { Metadata } from 'next';
+import { whatsappLink } from '@/lib/whatsapp';
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -224,19 +225,20 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-wine py-20 px-6 text-center">
-        <div className="max-w-xl mx-auto">
-          <h2 className="font-display text-4xl text-ivory font-semibold mb-4">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#CFA044] via-[#E8C87A] to-[#A67C2E] py-20 px-6 text-center">
+        <div className="absolute top-0 left-0 w-[380px] h-[380px] rounded-full bg-[#E8C87A]/25 blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="relative max-w-xl mx-auto">
+          <h2 className="font-display text-4xl text-wine font-semibold mb-4">
             Come see it for yourself
           </h2>
-          <p className="font-body text-ivory/60 text-sm mb-8 leading-relaxed">
+          <p className="font-body text-wine/75 text-sm mb-8 leading-relaxed">
             The best way to understand Navdeep Resort is to visit. Reach out and we'll arrange a tour.
           </p>
           <a
-            href={`https://wa.me/918567098852?text=${encodeURIComponent("Hello! I'd like to schedule a visit to Navdeep Resort.")}`}
+            href={whatsappLink("Hello Navdeep Resort! I'd like to schedule a visit.", '/about')}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block font-body text-sm font-medium bg-gold text-wine px-8 py-4 rounded-full hover:bg-gold/90 transition-colors"
+            className="inline-block font-body text-sm font-medium bg-wine text-ivory px-8 py-4 rounded-full hover:bg-wine/90 hover:scale-105 transition-all duration-200 shadow-xl shadow-wine/25"
           >
             Schedule a visit
           </a>

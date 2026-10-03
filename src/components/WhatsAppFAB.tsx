@@ -1,8 +1,11 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
+import { whatsappLink } from '@/lib/whatsapp';
+
 export default function WhatsAppFAB() {
-  const message = encodeURIComponent(
-    'Hello! I\'d like to enquire about packages at Navdeep Resort.'
-  );
-  const whatsappUrl = `https://wa.me/918567098852?text=${message}`;
+  const pathname = usePathname();
+  const whatsappUrl = whatsappLink("Hello Navdeep Resort! I'd like to know more about this page.", pathname);
 
   return (
     <a
